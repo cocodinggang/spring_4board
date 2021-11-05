@@ -87,8 +87,6 @@ public class FreeBoardServiceImpl implements FreeboardService{
 		String findText = (String) param.get("findText");
 		String field = (String) param.get("field");
 		totalCount = searchCount(param);
-		currentPage = (int) param.get("currentPage");
-		pageSize = (int) param.get("pageSize");
 		
 		pageDto=new PageDto(currentPage, pageSize, totalCount, field, findText);
 		list = dao.searchList(pageDto);
