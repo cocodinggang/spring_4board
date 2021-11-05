@@ -13,7 +13,7 @@
 <h3>동아리 커뮤니티</h3>
 <hr>
 <div>
-	<form action="list">
+	<form action="list" name="frmSearch">
 		<select name="field">
 		<!--c:if 는 페이지 이동시 선택된 검색항목 유지하기 위해 작성  -->
 			<option value="S" <c:if test="${field=='S'}">selected</c:if>>제목</option>
@@ -23,7 +23,15 @@
 		</select>
 		<input placeholder="검색할 단어를 입력하세요." name="findText" value="${findText}">
 		<input type="submit" value="검색">
+		<input type="button" value="검색2" onclick="list2()">		
 	</form>
+	<script type="text/javascript">
+		function list2(){
+			document.frmSearch.action="list2";
+			document.frmSearch.submit();
+		}
+	</script>
+	
 </div>
 <div style="margin:auto;">
  <table>

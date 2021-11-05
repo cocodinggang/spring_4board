@@ -81,6 +81,8 @@ public class FreeBoardServiceImpl implements FreeboardService{
 		String page=(String) param.get("page");
 		if(page==null || page.trim().length()==0) currentPage = 1;
 		else currentPage = Integer.parseInt(page);   //page파라미터가 숫자로 넘어온경우만 실행. 
+		param.put("currentPage", currentPage);
+		param.put("pageSize", pageSize);
 		
 		String findText = (String) param.get("findText");
 		String field = (String) param.get("field");
