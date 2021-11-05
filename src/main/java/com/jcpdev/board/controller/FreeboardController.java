@@ -36,6 +36,8 @@ public class FreeboardController {
 	
 	@Autowired
 	CommentService  cmtservice;
+	
+	
 //   http://localhost:8087/board/community 또는
 //   http://localhost:8087/board/community/list 와 매핑이 됩니다.	
 //   request mapping을 여러 url 요청으로 할수 있습니다.value 가 배열.
@@ -86,13 +88,16 @@ public class FreeboardController {
 	
 	//상세보기 : 미구현
 	@RequestMapping("/detail")     
-	public void detail() {
+	public void detail(int idx, int page,String field, String findText, Model model) {
 		
+		model.addAttribute("bean",service.getBoardOne(idx) );
+		model.addAttribute("cmtlist",cmtservice.commentList(idx) );
+		model.addAttribute("cr","\n" );
+		model.addAttribute("page",page);
+		model.addAttribute("field",field);
+		model.addAttribute("findText",findText);
 		
-		
-		
-		
-		
+		//view는 community/detail
 	}
 	
 	//글쓰기 - view  : insert() 메소드 
@@ -109,12 +114,21 @@ public class FreeboardController {
 		return "redirect:/community/list";
 	}
 	
-	//수정
+	//수정 화면
 	@RequestMapping(value = "update", method = RequestMethod.GET)
 	public void update(@RequestParam Map<String, String> param,Model model) {		//@RequestParam Map<String, String> param
 		model.addAttribute("bean", service.getBoardOne(Integer.parseInt(param.get("idx"))));
+		model.addAttribute("page", param.get("page"));
 	}
 	
+	//수정 내용 저장
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public String save2(Board board, int page,Model model) {
+		service.update(board);
+		
+		model.addAttribute("page", page);
+		return "redirect:/community/list";
+	}
 	//삭제 : 미구현
 	
 	@ExceptionHandler(NumberFormatException.class)

@@ -26,7 +26,7 @@
 		<input type="button" value="검색2" onclick="list2()">		
 	</form>
 	<script type="text/javascript">
-		function list2(){
+		function list2(){   //form 태그 name 추가 : name="frmSearch"
 			document.frmSearch.action="list2";
 			document.frmSearch.submit();
 		}
@@ -43,7 +43,7 @@
  	<c:forEach var="vo" items="${list}"> <!-- vo가 Freeboard타입  blists.getList() 실행-->
 	<tr>
 		<td>${vo.idx }</td> 	
- 		<td><a href="detail?idx=${vo.idx}&page=${page.currentPage}" class="title">${vo.subject }</a>
+ 		<td><a href="detail?idx=${vo.idx}&page=${page.currentPage}&field=${field}&findText=${findText}" class="title">${vo.subject }</a>
  		...<span style="color:orange;font-size: 80%;">(${vo.commentCount})
  		</span></td>
  		<td>${vo.name }</td>
