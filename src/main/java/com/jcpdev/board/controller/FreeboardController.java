@@ -36,16 +36,18 @@ public class FreeboardController {
 	
 	@Autowired
 	CommentService  cmtservice;
-	
-	//게시판 리스트 보기(검색기능 포함)
-	@RequestMapping(value={"/","/list"})
-	public String pageList(@RequestParam Map<String, String> param,Model model) { //String page,String field,String findText,Model model) {
+//   http://localhost:8087/board/community 또는
+//   http://localhost:8087/board/community/list 와 매핑이 됩니다.	
+//   request mapping을 여러 url 요청으로 할수 있습니다.value 가 배열.
+	//게시판 리스트 보기(검색기능 포함)     	
+	@RequestMapping(value={"/","/list"})   
+	public String pageList(@RequestParam Map<String, Object> param,Model model) { //String page,String field,String findText,Model model) {
 		logger.info("**freeboard list 출력합니다.");
 		
 		int currentPage;//현재 페이지
 		List<Board> list;
 		int totalCount; int pageSize=10;
-		String page=param.get("page");
+		String page=(String) param.get("page");
 		if(page==null || page.trim().length()==0) currentPage = 1;
 		else currentPage = Integer.parseInt(page);   //page파라미터가 숫자로 넘어온경우만 실행. 
 		
@@ -54,8 +56,8 @@ public class FreeboardController {
 		PageDto pageDto;
 		//검색 기능사용할 때 검색필드와 검색키워드 뷰에 전달한다.
 
-		String findText = param.get("findText");
-		String field=param.get("field");
+		String findText = (String) param.get("findText");
+		String field=(String) param.get("field");
 		
 		totalCount=service.searchCount(param);   //서비스 메소드 타입 변경예정
 		pageDto=new PageDto(currentPage, pageSize, totalCount, field, findText);
@@ -68,13 +70,19 @@ public class FreeboardController {
 		model.addAllAttributes(map);	//위에 4개의 put 실행한 map객체를 애트리뷰트에 저장한다.
 		
 		return "community/list";
+		
 	}  //view 이름은? list.jsp
 	
 	
 	//상세보기 : 미구현
 	@RequestMapping("/detail")     
 	public void detail() {
-	
+		
+		
+		
+		
+		
+		
 	}
 	
 	//글쓰기 - view  : insert() 메소드 
